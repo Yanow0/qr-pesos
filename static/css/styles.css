@@ -1,65 +1,112 @@
 body {
-    font-family: sans-serif;
+    background-color: #f5f5f5;
+    font-family: "Verdana", sans-serif;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
 }
 
 h1 {
-    font-size: 2em;
-    margin-bottom: 1em;
+    font-size: 32px;
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-align: center;
 }
 
 form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 2em;
 }
 
 label {
-    font-size: 1.2em;
-    margin-bottom: 0.5em;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
 }
 
 input[type="text"] {
-    font-size: 1.2em;
-    padding: 0.5em;
-    border-radius: 0.5em;
-    border: none;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    font-size: 16px;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    box-shadow: none;
 }
 
 button[type="submit"] {
-    font-size: 1.2em;
-    padding: 0.5em;
-    border-radius: 0.5em;
+    background-color: #428bca;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 22px;
     border: none;
-    background-color: #4CAF50;
-    color: white;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: none;
     cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-img {
+button[type="submit"]:hover {
+    background-color: #648bad;
+}
+
+img#imgQr {
+    display: block;
+    margin: 0 auto;
+    margin-top: 20px;
     max-width: 100%;
-    margin-top: 2em;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+    border: 1px solid #ccc;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-button {
-    font-size: 1.2em;
-    padding: 0.5em;
-    border-radius: 0.5em;
+.qr-code-wrapper {
+    margin: 0 auto;
+    text-align: center;
+}
+
+button#copy-to-clipboard {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
     border: none;
-    background-color: #4CAF50;
-    color: white;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 22px;
+    background-color: #ccc;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: none;
     cursor: pointer;
-    margin-top: 1em;
+    transition: background-color 0.3s;
 }
 
-textarea {
-    margin-top: 2em;
-    padding: 0.5em;
-    border-radius: 0.5em;
+button#copy-to-clipboard:hover {
+    background-color: #616161;
+}
+
+button#download {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
     border: none;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 22px;
+    background-color: #428bca;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button#download:hover {
+    background-color: #69a6db;
 }

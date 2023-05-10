@@ -33,6 +33,38 @@ func main() {
 	e.POST("/generate", generateHandler)
 	e.Static("/static", cfg.StaticFilesDir)
 
+	// write goroutine to delete old files every 2 minutes in the static/img folder if they are older than 1 hour
+	go func() {
+		for {
+			time.Sleep(30 * time.Minute)
+			files, err := os.ReadDir("static/img")
+			if err != nil {
+				log.Fatal(err)
+			}
+			for _, file := range files {
+				if file.IsDir() {
+					continue
+				}
+
+				// get last modified time
+				fileStats, err := os.Stat(file.Name())
+
+				if err != nil {
+					fmt.Println(err)
+				}
+
+				modifiedtime := fileStats.ModTime()
+
+				if time.Since(modifiedtime) > 1*time.Hour {
+					err := os.Remove(path.Join("static/img", file.Name()))
+					if err != nil {
+						log.Fatal(err)
+					}
+				}
+			}
+		}
+	}()
+
 	// Print routes
 	data, err := json.MarshalIndent(e.Routes(), "", "  ")
 	if err != nil {

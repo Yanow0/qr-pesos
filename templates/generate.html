@@ -1,5 +1,9 @@
 {{define "content"}}
+<header>
     <h1>{{.Title}}</h1>
+</header>
+<main>
+    <div class="container">
     <form action="/generate" method="post">
         <label for="text-input">{{.InputLabel}}</label>
         <input type="text" id="text-input" name="data" required>
@@ -7,8 +11,16 @@
         <input type="hidden" name="lang" value="{{.Lang}}">
     </form>
     {{if .QrCode}}
-        <img id="imgQr" src="{{.QrCode}}" alt="QR Code">
-        <button id="copy-to-clipboard" style="display:none;">{{.CopyToClipboardButtonLabel}}</button>
-        <button id="download">{{.DownloadButtonLabel}}</button>
+    
+    <img id="imgQr" src="{{.QrCode}}" alt="QR Code">
+    <div class="qr-code-wrapper">
+        <button id="copy-to-clipboard" class="button">{{.CopyToClipboardButtonLabel}}</button>
+        <button id="download" href="{{.QrCode}}" download class="button">{{.DownloadButtonLabel}}</a>
+    </div>
     {{end}}
+    </div>
+</main>
+<footer>
+    <p>&copy; 2023 QR Code Generator</p>
+</footer>
 {{end}}

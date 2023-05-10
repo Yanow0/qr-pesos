@@ -7,7 +7,7 @@ window.addEventListener('load', async () => {
         let btnCopy = document.getElementById('copy-to-clipboard');
         if (typeof ClipboardItem != 'undefined') {
             blobReady = true;
-            btnCopy.style.display = 'block';
+            btnCopy.style.display = 'inline-block';
             return r.blob()
         } else {
             blobReady = false;

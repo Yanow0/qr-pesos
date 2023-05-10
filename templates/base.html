@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="{{.Language}}">
-<head>
-    <meta charset="UTF-8">
-    <title>{{.Title}}</title>
-    <link rel="stylesheet" href="/static/css/styles.css">
-</head>
+<html lang="{{.Lang}}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{{.Title}}</title>
+        <meta name="description" content="Generate QR codes with ease">
+        <link rel="stylesheet" href="/static/css/styles.css">
+    </head>
 <body>
     {{template "content" .}}
     <script src="/static/js/main.js"></script>
