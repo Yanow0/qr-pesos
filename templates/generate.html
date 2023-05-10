@@ -4,6 +4,7 @@
         <label for="text-input">{{.InputLabel}}</label>
         <input type="text" id="text-input" name="data" required>
         <button type="submit">{{.GenerateButtonLabel}}</button>
+        <input type="hidden" name="lang" value="{{.Lang}}">
     </form>
     {{if .QrCode}}
         <img id="imgQr" src="{{.QrCode}}" alt="QR Code">

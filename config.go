@@ -2,7 +2,6 @@ package main
 
 import (
 	"os"
-	"strings"
 )
 
 type Config struct {
@@ -23,16 +22,9 @@ func LoadConfig() *Config {
 		staticFilesDir = "static"
 	}
 
-	languagesStr := os.Getenv("LANGUAGES")
-	languages := strings.Split(languagesStr, ",")
-	if len(languages) == 0 {
-		languages = []string{"en"}
-	}
-
 	// Return a Config object with the options
 	return &Config{
 		Port:           port,
 		StaticFilesDir: staticFilesDir,
-		Languages:      languages,
 	}
 }

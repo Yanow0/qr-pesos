@@ -1,5 +1,5 @@
 {
-    "Title": "QR Code Generator",
+    "title": "QR Code Generator",
     "inputLabel": "Enter text to generate QR code",
     "generateButtonLabel": "Generate",
     "copyToClipboardButtonLabel": "Copy to Clipboard",

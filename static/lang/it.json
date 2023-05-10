@@ -1,0 +1,8 @@
+{
+    "title": "Generatore di codici QR",
+    "inputLabel": "Inserisci il testo per generare un codice QR",
+    "generateButtonLabel": "Generare",
+    "copyToClipboardButtonLabel": "Copia negli appunti",
+    "downloadButtonLabel": "Scaricare"
+  }
+  

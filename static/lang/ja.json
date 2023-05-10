@@ -1,0 +1,9 @@
+{
+    "title": "QRコードジェネレーター",
+    "inputLabel": "QRコードを生成するテキストを入力してください",
+    "generateButtonLabel": "生成",
+    "qrCode": "",
+    "copyToClipboardButtonLabel": "クリップボードにコピー",
+    "downloadButtonLabel": "ダウンロード"
+  }
+  

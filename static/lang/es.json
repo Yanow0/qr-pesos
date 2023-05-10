@@ -1,5 +1,5 @@
 {
-    "Title": "Generador de códigos QR",
+    "title": "Generador de códigos QR",
     "inputLabel": "Ingrese el texto para generar el código QR",
     "generateButtonLabel": "Generar",
     "copyToClipboardButtonLabel": "Copiar al portapapeles",

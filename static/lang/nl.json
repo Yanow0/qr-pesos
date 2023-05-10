@@ -1,0 +1,8 @@
+{
+    "title": "QR-codegenerator",
+    "inputLabel": "Voer tekst in om een QR-code te genereren",
+    "generateButtonLabel": "Genereren",
+    "copyToClipboardButtonLabel": "Kopiëren naar klembord",
+    "downloadButtonLabel": "Downloaden"
+  }
+  

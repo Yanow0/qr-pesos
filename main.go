@@ -9,13 +9,11 @@ import (
 	"net/http"
 	"os"
 	"path"
-	"strings"
 	"text/template"
 	"time"
 
 	"github.com/labstack/echo/v4"
 	"github.com/skip2/go-qrcode"
-	"golang.org/x/text/language"
 )
 
 func main() {
@@ -30,9 +28,17 @@ func main() {
 	e.Renderer = renderer
 
 	// Define routes
-	e.GET("/", homeHandler)
+	e.GET("/:lang", homeHandler)
+	e.GET("/", homeHandlerBase)
 	e.POST("/generate", generateHandler)
 	e.Static("/static", cfg.StaticFilesDir)
+
+	// Print routes
+	data, err := json.MarshalIndent(e.Routes(), "", "  ")
+	if err != nil {
+		log.Fatal(err)
+	}
+	os.WriteFile("routes.json", data, 0644)
 
 	// Start server
 	e.Logger.Fatal(e.Start(":" + cfg.Port))
@@ -55,8 +61,15 @@ func (t *TemplateRenderer) Render(w io.Writer, name string, data interface{}, c 
 }
 
 func homeHandler(c echo.Context) error {
+	lang := c.Param("lang")
+
+	if !isLanguageSupported(lang) {
+		//redirect to the language specific home page
+		return c.Redirect(http.StatusMovedPermanently, "/"+getLanguage(c))
+	}
+
 	// Load translations for the current language
-	messages, err := loadMessages(getLanguage(c))
+	messages, err := loadMessages(lang)
 
 	if err != nil {
 		return err
@@ -64,35 +77,49 @@ func homeHandler(c echo.Context) error {
 
 	// Render the home page template with the translations
 	return c.Render(http.StatusOK, "base.html", map[string]interface{}{
-		"Title":                      messages["Title"],
+		"Title":                      messages["title"],
 		"InputLabel":                 messages["inputLabel"],
 		"GenerateButtonLabel":        messages["generateButtonLabel"],
 		"QrCode":                     "",
 		"CopyToClipboardButtonLabel": messages["copyToClipboardButtonLabel"],
 		"DownloadButtonLabel":        messages["downloadButtonLabel"],
 		"Messages":                   messages, // Pass the translations as a separate data field
+		"Lang":                       lang,
 	})
 }
 
+func homeHandlerBase(c echo.Context) error {
+	//redirect to the language specific home page
+	return c.Redirect(http.StatusMovedPermanently, "/"+getLanguage(c))
+}
+
 func generateHandler(c echo.Context) error {
+	lang := c.FormValue("lang")
+	data := c.FormValue("data")
+
+	if data == "" {
+		return c.Redirect(http.StatusMovedPermanently, "/"+getLanguage(c))
+	}
+
 	// Load translations for the current language
-	messages, err := loadMessages(getLanguage(c))
+	messages, err := loadMessages(lang)
 	if err != nil {
 		return err
 	}
 
 	// Generate the QR code and render the template with the QR code image and translations
-	data := c.FormValue("data")
+
 	qrCodeImage := generateQRCode(data)
 
 	return c.Render(http.StatusOK, "base.html", map[string]interface{}{
-		"Title":                      messages["Title"],
+		"Title":                      messages["title"],
 		"InputLabel":                 messages["inputLabel"],
 		"GenerateButtonLabel":        messages["generateButtonLabel"],
 		"QrCode":                     qrCodeImage,
 		"CopyToClipboardButtonLabel": messages["copyToClipboardButtonLabel"],
 		"DownloadButtonLabel":        messages["downloadButtonLabel"],
 		"Messages":                   messages, // Pass the translations as a separate data field
+		"Lang":                       lang,
 	})
 }
 
@@ -122,48 +149,4 @@ func generateQRCode(data string) string {
 
 	// Return the URL of the file
 	return fmt.Sprintf("/static/img/%s", fileName)
-}
-
-func loadMessages(lang string) (map[string]string, error) {
-	// Load messages from the JSON file for the specified language
-
-	file, err := os.Open(fmt.Sprintf("static/lang/%s.json", lang))
-	if err != nil {
-		return nil, err
-	}
-	defer file.Close()
-
-	var messages map[string]string
-	decoder := json.NewDecoder(file)
-	if err := decoder.Decode(&messages); err != nil {
-		return nil, err
-	}
-
-	return messages, nil
-}
-
-func getLanguage(c echo.Context) string {
-	// Get the user's language preference from the Accept-Language header
-	acceptLanguage := c.Request().Header.Get("Accept-Language")
-	if acceptLanguage == "" {
-		return "en" // Default to English if no language preference is specified
-	}
-
-	// Parse the Accept-Language header to get the user's preferred language
-	languages, _, err := language.ParseAcceptLanguage(acceptLanguage)
-
-	if err != nil || len(languages) == 0 {
-		return "en" // Default to English if parsing fails
-	}
-
-	//get the first 2 characters of language[0].String()
-	lang := languages[0].String()[0:2]
-	lang = strings.ToLower(lang)
-
-	if (lang != "en") && (lang != "es") && (lang != "fr") && (lang != "de") {
-		return "en"
-	}
-
-	// Return the language code for the user's preferred language
-	return lang
 }
