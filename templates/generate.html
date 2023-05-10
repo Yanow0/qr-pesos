@@ -6,8 +6,8 @@
         <button type="submit">{{.GenerateButtonLabel}}</button>
     </form>
     {{if .QrCode}}
-        <img src="{{.QrCode}}" alt="QR Code">
-        <button id="copy-to-clipboard">{{.CopyToClipboardButtonLabel}}</button>
+        <img id="imgQr" src="{{.QrCode}}" alt="QR Code">
+        <button id="copy-to-clipboard" style="display:none;">{{.CopyToClipboardButtonLabel}}</button>
         <button id="download">{{.DownloadButtonLabel}}</button>
     {{end}}
 {{end}}

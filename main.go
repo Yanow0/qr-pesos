@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"image/png"
 	"io"
@@ -8,11 +9,13 @@ import (
 	"net/http"
 	"os"
 	"path"
+	"strings"
 	"text/template"
 	"time"
 
 	"github.com/labstack/echo/v4"
 	"github.com/skip2/go-qrcode"
+	"golang.org/x/text/language"
 )
 
 func main() {
@@ -52,31 +55,44 @@ func (t *TemplateRenderer) Render(w io.Writer, name string, data interface{}, c 
 }
 
 func homeHandler(c echo.Context) error {
-	// Render the home page template
+	// Load translations for the current language
+	messages, err := loadMessages(getLanguage(c))
+
+	if err != nil {
+		return err
+	}
+
+	// Render the home page template with the translations
 	return c.Render(http.StatusOK, "base.html", map[string]interface{}{
-		"Title":                      "QR Code Generator",
-		"Language":                   "en",
-		"InputLabel":                 "Enter text to generate QR code",
-		"GenerateButtonLabel":        "Generate",
+		"Title":                      messages["Title"],
+		"InputLabel":                 messages["inputLabel"],
+		"GenerateButtonLabel":        messages["generateButtonLabel"],
 		"QrCode":                     "",
-		"CopyToClipboardButtonLabel": "Copy to Clipboard",
-		"DownloadButtonLabel":        "Download",
+		"CopyToClipboardButtonLabel": messages["copyToClipboardButtonLabel"],
+		"DownloadButtonLabel":        messages["downloadButtonLabel"],
+		"Messages":                   messages, // Pass the translations as a separate data field
 	})
 }
 
 func generateHandler(c echo.Context) error {
-	// Generate the QR code and render the template with the QR code image
+	// Load translations for the current language
+	messages, err := loadMessages(getLanguage(c))
+	if err != nil {
+		return err
+	}
+
+	// Generate the QR code and render the template with the QR code image and translations
 	data := c.FormValue("data")
 	qrCodeImage := generateQRCode(data)
 
 	return c.Render(http.StatusOK, "base.html", map[string]interface{}{
-		"Title":                      "QR Code Generator",
-		"Language":                   "en",
-		"InputLabel":                 "Enter text to generate QR code",
-		"GenerateButtonLabel":        "Generate",
+		"Title":                      messages["Title"],
+		"InputLabel":                 messages["inputLabel"],
+		"GenerateButtonLabel":        messages["generateButtonLabel"],
 		"QrCode":                     qrCodeImage,
-		"CopyToClipboardButtonLabel": "Copy to Clipboard",
-		"DownloadButtonLabel":        "Download",
+		"CopyToClipboardButtonLabel": messages["copyToClipboardButtonLabel"],
+		"DownloadButtonLabel":        messages["downloadButtonLabel"],
+		"Messages":                   messages, // Pass the translations as a separate data field
 	})
 }
 
@@ -92,9 +108,7 @@ func generateQRCode(data string) string {
 
 	// Save the QR code image to a file in the static directory
 	fileName := fmt.Sprintf("%d.png", time.Now().UnixNano())
-	filePath := path.Join("static", fileName)
-
-	fmt.Println(filePath)
+	filePath := path.Join("static/img", fileName)
 
 	file, err := os.Create(filePath)
 	if err != nil {
@@ -107,5 +121,49 @@ func generateQRCode(data string) string {
 	}
 
 	// Return the URL of the file
-	return fmt.Sprintf("/static/%s", fileName)
+	return fmt.Sprintf("/static/img/%s", fileName)
+}
+
+func loadMessages(lang string) (map[string]string, error) {
+	// Load messages from the JSON file for the specified language
+
+	file, err := os.Open(fmt.Sprintf("static/lang/%s.json", lang))
+	if err != nil {
+		return nil, err
+	}
+	defer file.Close()
+
+	var messages map[string]string
+	decoder := json.NewDecoder(file)
+	if err := decoder.Decode(&messages); err != nil {
+		return nil, err
+	}
+
+	return messages, nil
+}
+
+func getLanguage(c echo.Context) string {
+	// Get the user's language preference from the Accept-Language header
+	acceptLanguage := c.Request().Header.Get("Accept-Language")
+	if acceptLanguage == "" {
+		return "en" // Default to English if no language preference is specified
+	}
+
+	// Parse the Accept-Language header to get the user's preferred language
+	languages, _, err := language.ParseAcceptLanguage(acceptLanguage)
+
+	if err != nil || len(languages) == 0 {
+		return "en" // Default to English if parsing fails
+	}
+
+	//get the first 2 characters of language[0].String()
+	lang := languages[0].String()[0:2]
+	lang = strings.ToLower(lang)
+
+	if (lang != "en") && (lang != "es") && (lang != "fr") && (lang != "de") {
+		return "en"
+	}
+
+	// Return the language code for the user's preferred language
+	return lang
 }
