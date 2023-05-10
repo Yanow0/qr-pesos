@@ -1,0 +1,13 @@
+{{define "content"}}
+    <h1>{{.Title}}</h1>
+    <form action="/generate" method="post">
+        <label for="text-input">{{.InputLabel}}</label>
+        <input type="text" id="text-input" name="data" required>
+        <button type="submit">{{.GenerateButtonLabel}}</button>
+    </form>
+    {{if .QrCode}}
+        <img src="{{.QrCode}}" alt="QR Code">
+        <button id="copy-to-clipboard">{{.CopyToClipboardButtonLabel}}</button>
+        <button id="download">{{.DownloadButtonLabel}}</button>
+    {{end}}
+{{end}}
