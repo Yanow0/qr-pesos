@@ -1,4 +1,4 @@
-module video-transcription
+module qr-pesos
 
 go 1.20
 
