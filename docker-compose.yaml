@@ -1,11 +1,28 @@
 version: "3.7"
 
-# Define services
+networks:
+  web:
+    name: web
+    external: true
+
 services:
-  # App Service
-  app:
+  qr-pesos:
     image: qr-pesos
     container_name: qr-pesos
     restart: unless-stopped
+    networks:
+      - web
     ports:
-      - "80:8080" # Forward the exposed port 8080 on the container to port 8080 on the host machine
+      - "8080:8080"
+    labels:
+      # Traefik v2
+      - "traefik.enable=true"
+      - "traefik.http.services.qr-pesos.loadbalancer.server.port=8080"
+      - "traefik.http.middlewares.qr-pesos-https.redirectscheme.scheme=https"
+      - "traefik.http.routers.qr-pesos-http.entrypoints=web"
+      - "traefik.http.routers.qr-pesos-http.rule=Host(`link-to-qrcode.com`)"
+      - "traefik.http.routers.qr-pesos-http.middlewares=qr-pesos-https@docker"
+      - "traefik.http.routers.qr-pesos.entrypoints=web-secure"
+      - "traefik.http.routers.qr-pesos.rule=Host(`link-to-qrcode.com`)"
+      - "traefik.http.routers.qr-pesos.tls=true"
+      - "traefik.http.routers.qr-pesos.tls.certresolver=default"
