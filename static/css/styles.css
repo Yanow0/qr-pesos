@@ -3,6 +3,10 @@ body {
     font-family: "Verdana", sans-serif;
 }
 
+footer {
+    text-align: center;
+}
+
 .container {
     max-width: 600px;
     margin: 0 auto;

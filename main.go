@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"image/png"
 	"io"
-	"log"
 	"net/http"
 	"os"
 	"path"
@@ -13,10 +12,16 @@ import (
 	"time"
 
 	"github.com/labstack/echo/v4"
+	"github.com/rs/zerolog"
+	"github.com/rs/zerolog/log"
 	"github.com/skip2/go-qrcode"
 )
 
 func main() {
+	// Zerolog config
+	log.Logger = log.Output(zerolog.ConsoleWriter{Out: os.Stderr})
+
+	// Load config
 	cfg := LoadConfig()
 
 	e := echo.New()
@@ -33,33 +38,35 @@ func main() {
 	e.POST("/generate", generateHandler)
 	e.Static("/static", cfg.StaticFilesDir)
 
-	// write goroutine to delete old files every 2 minutes in the static/img folder if they are older than 1 hour
+	// goroutine to delete old files every 30 minutes in the static/img folder if they are older than 1 hour
 	go func() {
 		for {
-			time.Sleep(30 * time.Minute)
+			time.Sleep(5 * time.Minute)
 			files, err := os.ReadDir("static/img")
 			if err != nil {
-				log.Fatal(err)
+				log.Err(err).Msg("Error reading directory")
 			}
 			for _, file := range files {
+				// skip directories
 				if file.IsDir() {
 					continue
 				}
 
+				// get file path
+				filePath := path.Join("static/img", file.Name())
 				// get last modified time
-				fileStats, err := os.Stat(file.Name())
-
+				fileStats, err := os.Stat(filePath)
 				if err != nil {
 					fmt.Println(err)
 				}
 
-				modifiedtime := fileStats.ModTime()
-
-				if time.Since(modifiedtime) > 1*time.Hour {
-					err := os.Remove(path.Join("static/img", file.Name()))
+				// delete file if older than 1 hour
+				if time.Since(fileStats.ModTime()) > 1*time.Hour {
+					err := os.Remove(filePath)
 					if err != nil {
-						log.Fatal(err)
+						log.Err(err).Msg("Error deleting file")
 					}
+					log.Info().Msg("Deleted file " + file.Name())
 				}
 			}
 		}
@@ -68,9 +75,13 @@ func main() {
 	// Print routes
 	data, err := json.MarshalIndent(e.Routes(), "", "  ")
 	if err != nil {
-		log.Fatal(err)
+		log.Err(err).Msg("Error marshalling routes")
 	}
-	os.WriteFile("routes.json", data, 0644)
+
+	err = os.WriteFile("routes.json", data, 0777)
+	if err != nil {
+		log.Err(err).Msg("Error writing routes to file")
+	}
 
 	// Start server
 	e.Logger.Fatal(e.Start(":" + cfg.Port))
@@ -159,7 +170,7 @@ func generateQRCode(data string) string {
 	// Generate the QR code using go-qrcode library
 	qrCode, err := qrcode.New(data, qrcode.Medium)
 	if err != nil {
-		log.Fatal(err)
+		log.Err(err).Msg("Error generating QR code")
 	}
 
 	// Encode the QR code as a PNG image
@@ -171,12 +182,13 @@ func generateQRCode(data string) string {
 
 	file, err := os.Create(filePath)
 	if err != nil {
-		log.Fatal(err)
+		log.Err(err).Msg("Error creating file")
 	}
 	defer file.Close()
+
 	err = png.Encode(file, qrCodeImage)
 	if err != nil {
-		log.Fatal(err)
+		log.Err(err).Msg("Error encoding QR code image")
 	}
 
 	// Return the URL of the file
