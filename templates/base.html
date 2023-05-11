@@ -1,26 +1,29 @@
 <!DOCTYPE html>
 <html lang="{{.Lang}}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>{{.Title}}</title>
-        <meta name="description" content="{{.Description}}>">
-        <link rel="stylesheet" href="/static/css/styles.css">
-        <link rel="icon" href="/static/favicon.ico">
-    </head>
-<body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{.Title}}</title>
+    <meta name="description" content="{{.Description}}>" />
+    <link rel="stylesheet" href="/static/css/styles.css" />
+    <link rel="icon" href="/static/favicon.ico" />
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-CKYYWJ7FVV"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-CKYYWJ7FVV");
+    </script>
+  </head>
+  <body>
     {{template "content" .}}
     <script src="/static/js/main.js"></script>
-    
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-CKYYWJ7FVV"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-CKYYWJ7FVV');
-</script>
-
-</body>
+  </body>
 </html>
