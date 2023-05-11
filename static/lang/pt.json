@@ -1,8 +1,8 @@
 {
-    "title": "Gerador de código QR",
-    "inputLabel": "Digite o texto para gerar um código QR",
-    "generateButtonLabel": "Gerar",
-    "copyToClipboardButtonLabel": "Copiar para a área de transferência",
-    "downloadButtonLabel": "Download"
-  }
-  
+  "title": "Gerador de Código QR",
+  "inputLabel": "Insira o texto para gerar o código QR",
+  "generateButtonLabel": "Gerar",
+  "copyToClipboardButtonLabel": "Copiar para Área de Transferência",
+  "downloadButtonLabel": "Baixar",
+  "description": "Gere códigos QR com facilidade"
+}

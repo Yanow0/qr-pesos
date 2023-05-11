@@ -1,8 +1,8 @@
 {
-    "title": "QR-codegenerator",
-    "inputLabel": "Voer tekst in om een QR-code te genereren",
-    "generateButtonLabel": "Genereren",
-    "copyToClipboardButtonLabel": "Kopiëren naar klembord",
-    "downloadButtonLabel": "Downloaden"
-  }
-  
+  "title": "QR-code Generator",
+  "inputLabel": "Voer tekst in om QR-code te genereren",
+  "generateButtonLabel": "Genereren",
+  "copyToClipboardButtonLabel": "Kopiëren naar klembord",
+  "downloadButtonLabel": "Downloaden",
+  "description": "Genereer QR-codes gemakkelijk"
+}

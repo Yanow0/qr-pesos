@@ -1,8 +1,8 @@
 {
-    "title": "Panghasil Kode QR",
-    "inputLabel": "Tulis teks kanggo ngasilake kode QR",
-    "generateButtonLabel": "Ngasilake",
-    "copyToClipboardButtonLabel": "Salin menyang Clipboard",
-    "downloadButtonLabel": "Undhuh"
-  }
-  
+  "title": "Panggénérate QR Code",
+  "inputLabel": "Mlebu teks kanggo nganggo QR Code",
+  "generateButtonLabel": "Panggénérate",
+  "copyToClipboardButtonLabel": "Salin menyang klipboard",
+  "downloadButtonLabel": "Dhaptar",
+  "description": "Mudhahaken QR code"
+}

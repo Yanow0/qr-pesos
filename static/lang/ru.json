@@ -1,8 +1,8 @@
 {
-    "title": "Генератор QR-кодов",
-    "inputLabel": "Введите текст для генерации QR-кода",
-    "generateButtonLabel": "Создать",
-    "copyToClipboardButtonLabel": "Копировать в буфер обмена",
-    "downloadButtonLabel": "Скачать"
-  }
-  
+  "title": "Генератор QR-кодов",
+  "inputLabel": "Введите текст для генерации QR-кода",
+  "generateButtonLabel": "Генерировать",
+  "copyToClipboardButtonLabel": "Копировать в буфер обмена",
+  "downloadButtonLabel": "Скачать",
+  "description": "Создайте QR-коды легко"
+}

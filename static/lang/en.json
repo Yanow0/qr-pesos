@@ -3,5 +3,6 @@
     "inputLabel": "Enter text to generate QR code",
     "generateButtonLabel": "Generate",
     "copyToClipboardButtonLabel": "Copy to Clipboard",
-    "downloadButtonLabel": "Download"
+    "downloadButtonLabel": "Download",
+    "description": "Generate QR codes with ease"
 }

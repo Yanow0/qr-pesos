@@ -1,7 +1,8 @@
 {
-    "title": "QR-Code-Generator",
-    "inputLabel": "Geben Sie den Text ein, um den QR-Code zu generieren",
-    "generateButtonLabel": "Generieren",
-    "copyToClipboardButtonLabel": "In die Zwischenablage kopieren",
-    "downloadButtonLabel": "Herunterladen"
+"title": "QR-Code-Generator",
+"inputLabel": "Geben Sie den Text ein, um den QR-Code zu generieren",
+"generateButtonLabel": "Generieren",
+"copyToClipboardButtonLabel": "In die Zwischenablage kopieren",
+"downloadButtonLabel": "Herunterladen",
+"description": "Generieren Sie QR-Codes mit Leichtigkeit"
 }

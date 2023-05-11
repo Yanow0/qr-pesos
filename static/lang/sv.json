@@ -1,8 +1,8 @@
 {
-    "title": "QR-kodgenerator",
-    "inputLabel": "Ange text för att generera QR-kod",
-    "generateButtonLabel": "Generera",
-    "copyToClipboardButtonLabel": "Kopiera till urklipp",
-    "downloadButtonLabel": "Ladda ner"
-  }
-  
+  "title": "QR-kodgenerator",
+  "inputLabel": "Ange text för att generera QR-kod",
+  "generateButtonLabel": "Generera",
+  "copyToClipboardButtonLabel": "Kopiera till urklipp",
+  "downloadButtonLabel": "Ladda ner",
+  "description": "Generera QR-koder med lätthet"
+}

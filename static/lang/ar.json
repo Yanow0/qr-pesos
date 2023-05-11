@@ -1,8 +1,8 @@
 {
-    "title": "مولد رمز الاستجابة السريعة",
-    "inputLabel": "أدخل النص لإنشاء رمز الاستجابة السريعة",
-    "generateButtonLabel": "إنشاء",
-    "copyToClipboardButtonLabel": "نسخ إلى الحافظة",
-    "downloadButtonLabel": "تحميل"
+  "title": "مولد رمز الاستجابة السريعة",
+  "inputLabel": "أدخل النص لتوليد رمز الاستجابة السريعة",
+  "generateButtonLabel": "توليد",
+  "copyToClipboardButtonLabel": "نسخ إلى الحافظة",
+  "downloadButtonLabel": "تحميل",
+  "description": "توليد رموز الاستجابة السريعة بسهولة"
   }
-  

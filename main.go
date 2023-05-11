@@ -127,6 +127,7 @@ func homeHandler(c echo.Context) error {
 		"CopyToClipboardButtonLabel": messages["copyToClipboardButtonLabel"],
 		"DownloadButtonLabel":        messages["downloadButtonLabel"],
 		"Messages":                   messages, // Pass the translations as a separate data field
+		"Description":                messages["description"],
 		"Lang":                       lang,
 	})
 }
@@ -162,6 +163,7 @@ func generateHandler(c echo.Context) error {
 		"CopyToClipboardButtonLabel": messages["copyToClipboardButtonLabel"],
 		"DownloadButtonLabel":        messages["downloadButtonLabel"],
 		"Messages":                   messages, // Pass the translations as a separate data field
+		"Description":                messages["description"],
 		"Lang":                       lang,
 	})
 }
