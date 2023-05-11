@@ -1,0 +1,8 @@
+{
+    "title": "QR-kodegenerator",
+    "inputLabel": "Skriv inn teksten for å generere QR-kode",
+    "generateButtonLabel": "Generere",
+    "copyToClipboardButtonLabel": "Kopiere til utklippstavle",
+    "downloadButtonLabel": "Last ned"
+  }
+  
