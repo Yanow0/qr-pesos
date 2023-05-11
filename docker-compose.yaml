@@ -13,7 +13,7 @@ services:
     networks:
       - web
     ports:
-      - "8080:8080"
+      - "8008:8080"
     labels:
       # Traefik v2
       - "traefik.enable=true"
