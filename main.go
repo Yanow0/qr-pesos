@@ -106,6 +106,10 @@ func (t *TemplateRenderer) Render(w io.Writer, name string, data interface{}, c 
 func homeHandler(c echo.Context) error {
 	lang := c.Param("lang")
 
+	if lang == "sitemap.xml" {
+		return c.File("sitemap.xml")
+	}
+
 	if !isLanguageSupported(lang) {
 		//redirect to the language specific home page
 		return c.Redirect(http.StatusMovedPermanently, "/"+getLanguage(c))
