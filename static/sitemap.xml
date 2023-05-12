@@ -64,4 +64,8 @@
         <loc>https://link-to-qrcode.com/no</loc>
         <lastmod>2023-05-11T13:59:02+00:00</lastmod>
     </url>
+    <url>
+        <loc>https://link-to-qrcode.com/sitemap</loc>
+        <lastmod>2023-05-11T13:59:02+00:00</lastmod>
+    </url>
 </urlset>

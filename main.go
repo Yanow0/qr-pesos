@@ -33,6 +33,7 @@ func main() {
 	e.Renderer = renderer
 
 	// Define routes
+	e.GET("/sitemap", sitemapHandler)
 	e.GET("/:lang", homeHandler)
 	e.GET("/", homeHandlerBase)
 	e.POST("/generate", generateHandler)
@@ -103,18 +104,17 @@ func (t *TemplateRenderer) Render(w io.Writer, name string, data interface{}, c 
 	return t.templates.ExecuteTemplate(w, name, data)
 }
 
+func sitemapHandler(c echo.Context) error {
+	// return sitemap.xml file using os package
+	sitemap, err := os.ReadFile("static/sitemap.xml")
+	if err != nil {
+		return err
+	}
+	return c.XMLBlob(http.StatusOK, sitemap)
+}
+
 func homeHandler(c echo.Context) error {
 	lang := c.Param("lang")
-
-	if lang == "sitemap.xml" {
-		// return sitemap.xml file using os package
-		sitemap, err := os.ReadFile("sitemap.xml")
-		if err != nil {
-			return err
-		}
-		return c.XMLBlob(http.StatusOK, sitemap)
-
-	}
 
 	if !isLanguageSupported(lang) {
 		//redirect to the language specific home page
