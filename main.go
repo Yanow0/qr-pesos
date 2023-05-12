@@ -107,7 +107,13 @@ func homeHandler(c echo.Context) error {
 	lang := c.Param("lang")
 
 	if lang == "sitemap.xml" {
-		return c.File("sitemap.xml")
+		// return sitemap.xml file using os package
+		sitemap, err := os.ReadFile("sitemap.xml")
+		if err != nil {
+			return err
+		}
+		return c.XMLBlob(http.StatusOK, sitemap)
+
 	}
 
 	if !isLanguageSupported(lang) {
