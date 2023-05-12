@@ -1,11 +1,6 @@
 [
   {
     "method": "GET",
-    "path": "/static*",
-    "name": "github.com/labstack/echo/v4.StaticDirectoryHandler.func1"
-  },
-  {
-    "method": "GET",
     "path": "/:lang",
     "name": "main.homeHandler"
   },
@@ -18,5 +13,10 @@
     "method": "POST",
     "path": "/generate",
     "name": "main.generateHandler"
+  },
+  {
+    "method": "GET",
+    "path": "/static*",
+    "name": "github.com/labstack/echo/v4.StaticDirectoryHandler.func1"
   }
 ]
