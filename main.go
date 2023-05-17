@@ -39,10 +39,10 @@ func main() {
 	e.POST("/generate", generateHandler)
 	e.Static("/static", cfg.StaticFilesDir)
 
-	// goroutine to delete old files every 30 minutes in the static/img folder if they are older than 1 hour
+	// goroutine to delete old files every minutes in the static/img folder if they are older than 1 hour
 	go func() {
 		for {
-			time.Sleep(5 * time.Minute)
+			time.Sleep(1 * time.Minute)
 			files, err := os.ReadDir("static/img")
 			if err != nil {
 				log.Err(err).Msg("Error reading directory")
@@ -61,8 +61,8 @@ func main() {
 					fmt.Println(err)
 				}
 
-				// delete file if older than 1 hour
-				if time.Since(fileStats.ModTime()) > 1*time.Hour {
+				// delete file if older than 2 minutes
+				if time.Since(fileStats.ModTime()) > 2*time.Minute {
 					err := os.Remove(filePath)
 					if err != nil {
 						log.Err(err).Msg("Error deleting file")
