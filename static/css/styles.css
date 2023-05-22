@@ -1,6 +1,8 @@
 body {
     background-color: #f5f5f5;
     font-family: "Verdana", sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
 footer {
@@ -113,4 +115,68 @@ button#download {
 
 button#download:hover {
     background-color: #69a6db;
+}
+
+header nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+header > nav > ul > li {
+    margin: 0 10px;
+}
+
+header nav ul li a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+header {
+    background-color: #428bca;
+    padding: 20px;
+    color: #fff;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+#selectlang {
+    padding: 0 10px;
+    cursor: pointer;
+}
+
+#listlang {
+    position: absolute;
+    display: none;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+}
+
+#listlang li {
+    padding: 10px;
+    background: white;
+}
+
+#listlang li:hover {
+    background-color: #428bca;
+    cursor: pointer;
+}
+
+#chevron {
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+
+.flag {
+    width: 30px;
+    box-shadow: 0 0px 10px rgba(0, 0, 0, 0.25);
+}
+
+.icon {
+    height: 18px;
 }

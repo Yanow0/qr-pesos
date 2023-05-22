@@ -1,13 +1,33 @@
 [
   {
     "method": "GET",
-    "path": "/sitemap",
-    "name": "main.sitemapHandler"
+    "path": "/:lang",
+    "name": "main.homeHandler"
   },
   {
     "method": "GET",
-    "path": "/:lang",
-    "name": "main.homeHandler"
+    "path": "/:lang/about",
+    "name": "main.aboutHandler"
+  },
+  {
+    "method": "GET",
+    "path": "/:lang/faq",
+    "name": "main.faqHandler"
+  },
+  {
+    "method": "GET",
+    "path": "/:lang/contact",
+    "name": "main.contactHandler"
+  },
+  {
+    "method": "GET",
+    "path": "/static*",
+    "name": "github.com/labstack/echo/v4.StaticDirectoryHandler.func1"
+  },
+  {
+    "method": "GET",
+    "path": "/sitemap",
+    "name": "main.sitemapHandler"
   },
   {
     "method": "GET",
@@ -20,8 +40,18 @@
     "name": "main.generateHandler"
   },
   {
+    "method": "POST",
+    "path": "/selectlang",
+    "name": "main.selectLangHandler"
+  },
+  {
     "method": "GET",
-    "path": "/static*",
-    "name": "github.com/labstack/echo/v4.StaticDirectoryHandler.func1"
+    "path": "/:lang/terms",
+    "name": "main.termsHandler"
+  },
+  {
+    "method": "GET",
+    "path": "/:lang/privacy",
+    "name": "main.privacyHandler"
   }
 ]

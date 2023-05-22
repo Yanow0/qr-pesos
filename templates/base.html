@@ -28,7 +28,60 @@
     </script>
   </head>
   <body>
-    {{template "content" .}}
+    <header>
+      <h1>link-to-qrcode</h1>
+      <nav>
+        <ul>
+          <li><a href="/{{.Lang}}">{{.HomeLinkLabel}}</a></li>
+          <li><a href="/{{.Lang}}/about">{{.AboutLinkLabel}}</a></li>
+          <li><a href="/{{.Lang}}/contact">{{.ContactLinkLabel}}</a></li>
+          <li><a href="/{{.Lang}}/faq">{{.FaqLinkLabel}}</a></li>
+          <li><a href="/{{.Lang}}/privacy">{{.PrivacyLinkLabel}}</a></li>
+          <li><a href="/{{.Lang}}/terms">{{.TermsLinkLabel}}</a></li>
+          <li>
+            <form id="selectlangform" action="/selectlang" method="post">
+              <input type="hidden" id="lang" name="lang" value="{{.Lang}}">
+            </form>
+           
+            <div id="selectlang" data-lang="{{.Lang}}"><img class="flag" src="/static/img/flags/{{.Lang}}.png" alt="{{.Lang}}"> <img id="chevron" class="icon" src="/static/img/icons/bottom_arrow.png"></div>
+
+            <ul id="listlang">
+              {{range .SelectLangs}}
+                {{if eq . $.Lang}}
+                  {{continue}}
+                {{else}}
+                  <li data-lang="{{.}}"><img class="flag" src="/static/img/flags/{{.}}.png" alt="{{.}}"></li>
+                {{ end }}
+              {{end}}
+           </ul>
+          </li>
+        </ul>
+
+        
+      </nav>
+
+    </header>
+    <main>
+      <div class="container">
+    <h1>{{.Title}}</h1>
+    {{if eq .Tpl "about"}}
+      {{template "about" .}} 
+    {{else if eq .Tpl "contact"}}
+      {{template "contact" .}}
+    {{else if eq .Tpl "faq"}}
+      {{template "faq" .}}
+    {{else if eq .Tpl "generate"}}
+      {{template "generate" .}}
+    {{else if eq .Tpl "privacy"}}
+      {{template "privacy" .}}
+    {{else if eq .Tpl "terms"}}
+      {{template "terms" .}}
+    {{end}}
+      </div>
+    </main>
+    <footer>
+      <p>&copy; 2023 link-to-qrcode</p>
+  </footer>
     <script src="/static/js/main.js"></script>
   </body>
 </html>

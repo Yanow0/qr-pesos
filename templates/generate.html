@@ -1,9 +1,5 @@
-{{define "content"}}
-<header>
-    <h1>{{.Title}}</h1>
-</header>
-<main>
-    <div class="container">
+{{define "generate"}}
+
     <form action="/generate" method="post">
         <label for="text-input">{{.InputLabel}}</label>
         <input type="text" id="text-input" name="data" required>
@@ -18,9 +14,4 @@
         <button id="download" href="{{.QrCode}}" download class="button">{{.DownloadButtonLabel}}</a>
     </div>
     {{end}}
-    </div>
-</main>
-<footer>
-    <p>&copy; 2023 QR Code Generator</p>
-</footer>
 {{end}}

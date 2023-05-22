@@ -3,11 +3,11 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"log"
 	"os"
 	"strings"
 
 	"github.com/labstack/echo/v4"
+	"github.com/rs/zerolog/log"
 	"golang.org/x/text/language"
 )
 
@@ -73,7 +73,7 @@ func getSupportedLanguages() []string {
 	//get all file names in static/lang and remove the .json extension
 	files, err := os.ReadDir("static/lang")
 	if err != nil {
-		log.Fatal(err)
+		log.Err(err).Msg("Could not read static/lang directory")
 	}
 	filesNames := make([]string, len(files))
 	for i, file := range files {
