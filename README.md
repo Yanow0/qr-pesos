@@ -1,6 +1,6 @@
 # qr-pesos
 
-Ce projet est un entrainement à la programmation en Go, il est disponible à l'adresse suivante : link-to-qrcode.com
+Ce projet est un entrainement à la programmation en Go, il est disponible à l'adresse suivante : [link-to-qrcode.com](https://link-to-qrcode.com)
 
 Cet outil permet de générer des QRCode à partir d'un texte ou d'une URL.
 
